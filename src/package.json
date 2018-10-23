@@ -4,7 +4,8 @@
   "description": "Spacewalk EVA Checklist",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/delacruzjl/spacewalk/issues"
   },
-  "homepage": "https://github.com/delacruzjl/spacewalk#readme"
+  "homepage": "https://github.com/delacruzjl/spacewalk#readme",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "docx": "^4.3.0",
+    "js-yaml": "^3.12.0",
+    "lodash": "^4.17.11"
+  }
 }
