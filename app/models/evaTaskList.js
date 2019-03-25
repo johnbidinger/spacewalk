@@ -94,7 +94,7 @@ function taskListObjectFromFile(file, fs, yj) {
     //  Iterate each task and attempt to load the corresponding YAML file
     // is this were conditional for repo: url.yaml.yml?
     _.forEach(etl.taskFiles, function (t) {
-        // if `${path.dirname(file)}/${t.repo}`{curl.request({url: 'https...'}, )}
+        // if `${path.dirname(file)}/${t.repo}`{curl.request({url: 'https...'}, )}else: ...
         let taskFile = `${path.dirname(file)}/${t.file}`;
         if(fs.existsSync(taskFile)) {
 
