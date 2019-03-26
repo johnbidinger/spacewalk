@@ -6,6 +6,7 @@ let evaTask = require('./evaTask');
 const _ = require('lodash');
 const YAML = require('yamljs');
 const path = require('path');
+const curl = require('curlrequest')
 
 exports.create = taskListObject;
 exports.createFromYamlString = taskListObjectFromYamlString;
@@ -93,9 +94,27 @@ function taskListObjectFromFile(file, fs, yj) {
 
     //  Iterate each task and attempt to load the corresponding YAML file
     // is this were conditional for repo: url.yaml.yml?
+    var options = {url: 'https://github.com/johnbidinger/spacewalk/raw/repo-file-load/examples/STS-134_EVA1/egress.yml', include:true, file:true}
     _.forEach(etl.taskFiles, function (t) {
+        if(t.repo){
         // if `${path.dirname(file)}/${t.repo}`{curl.request({url: 'https...'}, )}else: ...
-        let taskFile = `${path.dirname(file)}/${t.file}`;
+        // https://github.com/johnbidinger/spacewalk/blob/repo-file-load/examples/STS-134_EVA1/main.yml
+        let taskFile =  curl.request(options, function ( err, file){
+            let et = evaTask.createFromRepo(taskFile, fs, yj);    
+        });
+            // curl -L -O  https://github.com/johnbidinger/spacewalk/blob/repo-file-load/examples/STS-134_EVA1/egress.yml
+            //   https://raw.githubusercontent.com/johnbidinger/spacewalk/repo-file-load/examples/STS-134_EVA1/egress.yml
+                // https://github.com/johnbidinger/spacewalk/raw/repo-file-load/examples/STS-134_EVA1/egress.yml
+            // let et = evaTask.createFromRepo(taskFile, fs, yj);
+            if(et) {
+                //  Add this evaTask to the evaTaskList
+                etl.tasks.push(et);
+            }
+        }
+        else{
+            let taskFile = `${path.dirname(file)}/${t.file}`;
+        }
+        console.log('HELLO!')
         if(fs.existsSync(taskFile)) {
 
             let et = evaTask.createFromFile(taskFile, fs, yj);

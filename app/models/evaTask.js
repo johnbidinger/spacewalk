@@ -5,6 +5,7 @@ const YAML = require('yamljs');
 exports.create = taskObject;
 exports.createFromYamlString = taskObjectFromYamlString;
 exports.createFromFile = taskObjectFromFile;
+exports.createFromRepo = taskObjectFromRepo;
 
 /**
  * This Constructor creates a evaTask using the specified parameters
@@ -72,6 +73,22 @@ function taskObjectFromFile(file, fs, yj) {
         console.log("File doesn't exist: " + file);
         return null;
     }
+
+    let yamlString = fs.readFileSync(file, 'utf8');
+
+    //  Construct an evaTask from the YAML
+    let et = taskObjectFromYamlString(yamlString);
+    if(!et) {
+        return null;
+    }
+
+    return et;
+}
+function taskObjectFromRepo(file, fs, yj) {
+    // if(!fs.existsSync(file)) {
+    //     console.log("File doesn't exist: " + file);
+    //     return null;
+    // }
 
     let yamlString = fs.readFileSync(file, 'utf8');
 

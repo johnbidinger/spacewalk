@@ -9,4 +9,5 @@ actors:
 
 tasks:
   - file: egress.yml
+  - repo:  https://github.com/johnbidinger/spacewalk/blob/repo-file-load/examples/STS-134_EVA1/egress.yml
   - file: misse7.yml
